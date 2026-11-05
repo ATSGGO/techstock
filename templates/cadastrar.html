@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>TechStock Manager - Novo Ativo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container my-5" style="max-width: 800px;">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h3 class="mb-4">➕ Provisionamento de Novo Ativo / Licença</h3>
+                
+                <form action="/novo" method="POST">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">SKU (Código Único):</label>
+                            <input type="text" class="form-control" name="sku" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Nome Comercial:</label>
+                            <input type="text" class="form-control" name="nome_comercial" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Fabricante:</label>
+                            <input type="text" class="form-control" name="fabricante" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Classificação:</label>
+                            <select class="form-select" name="classificacao" required>
+                                <option value="Hardware">Hardware</option>
+                                <option value="Software">Software</option>
+                                <option value="Periférico">Periférico</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Categoria (Dinâmica):</label>
+                            <select class="form-select" name="categoria_id" required>
+                                {% for cat in categorias %}
+                                    <option value="{{ cat.id }}">{{ cat.nome }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Fornecedor (Dinâmico):</label>
+                            <select class="form-select" name="fornecedor_id" required>
+                                {% for forn in fornecedores %}
+                                    <option value="{{ forn.id }}">{{ forn.razao_social }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Especificação Técnica / Versão:</label>
+                            <textarea class="form-control" name="especificacao_tecnica" rows="2"></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Modalidade de Licenciamento (Software):</label>
+                            <input type="text" class="form-control" name="modalidade_licenciamento" value="N/A">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Localização Física / Digital:</label>
+                            <input type="text" class="form-control" name="localizacao" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Valor Unitário (R$):</label>
+                            <input type="number" step="0.01" class="form-control" name="valor_unitario" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Volume Inicial em Estoque:</label>
+                            <input type="number" class="form-control" name="volume_estoque" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Ponto de Reposição (Mínimo):</label>
+                            <input type="number" class="form-control" name="ponto_reposicao" required>
+                        </div>
+                        
+                        <div class="col-12 mt-4">
+                            <button type="submit" class="btn btn-primary">Registar Ativo</button>
+                            <a href="/" class="btn btn-secondary">Voltar ao Dashboard</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
