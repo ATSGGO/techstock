@@ -1,0 +1,238 @@
+:root {
+    --brand-950: #10233d;
+    --brand-900: #173253;
+    --brand-700: #245b96;
+    --brand-600: #2f70b7;
+    --ink-900: #1b2b40;
+    --ink-600: #607087;
+    --line: #e3eaf2;
+    --surface: #ffffff;
+    --page: #f3f6fa;
+}
+
+body {
+    background: var(--page) !important;
+    color: var(--ink-900);
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+}
+
+.site-header {
+    color: white;
+    background: linear-gradient(115deg, var(--brand-950), var(--brand-700));
+    box-shadow: 0 4px 18px rgba(16, 35, 61, 0.16);
+}
+
+.site-header-inner {
+    min-height: 82px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.brand-lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: white;
+    text-decoration: none;
+}
+
+.brand-lockup:hover {
+    color: white;
+}
+
+.brand-logo {
+    display: block;
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+    filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.2));
+}
+
+.brand-name {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 750;
+    letter-spacing: 0.01em;
+}
+
+.brand-caption {
+    display: block;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.76rem;
+}
+
+.account-area {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.8rem;
+}
+
+.account-details {
+    text-align: right;
+    line-height: 1.25;
+}
+
+.account-name {
+    display: block;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 650;
+}
+
+.account-role {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.72rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.nav-shell {
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+}
+
+.app-tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.35rem;
+    overflow-x: auto;
+    border: 0;
+    scrollbar-width: thin;
+}
+
+.app-tabs .nav-link {
+    flex: 0 0 auto;
+    margin-bottom: 0;
+    padding: 0.9rem 1rem 0.78rem;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    border-radius: 0;
+    color: var(--ink-600);
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.app-tabs .nav-link:hover {
+    color: var(--brand-700);
+    background: #f7f9fc;
+}
+
+.app-tabs .nav-link.active {
+    border-bottom-color: var(--brand-600);
+    color: var(--brand-700);
+    background: transparent;
+}
+
+.page-title {
+    margin-bottom: 0.25rem;
+    color: var(--ink-900);
+    font-size: clamp(1.35rem, 2vw, 1.8rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.page-subtitle {
+    margin-bottom: 0;
+    color: var(--ink-600);
+}
+
+.card {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(25, 50, 80, 0.055) !important;
+}
+
+.card-header {
+    padding: 1rem 1.25rem;
+    border-bottom-color: var(--line);
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+.table {
+    --bs-table-hover-bg: #f5f8fc;
+}
+
+.table > :not(caption) > * > * {
+    padding: 0.85rem 0.9rem;
+    border-bottom-color: var(--line);
+}
+
+.table-dark {
+    --bs-table-bg: var(--brand-900);
+    --bs-table-color: #fff;
+    --bs-table-border-color: rgba(255, 255, 255, 0.12);
+}
+
+.btn {
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.form-control,
+.form-select {
+    border-color: #d7e0eb;
+    border-radius: 8px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #7aa8d8;
+    box-shadow: 0 0 0 0.2rem rgba(47, 112, 183, 0.14);
+}
+
+.alert {
+    border: 0;
+    border-radius: 10px;
+}
+
+.site-footer {
+    padding: 1.5rem 0;
+    color: #78879a;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.auth-logo {
+    display: block;
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 1rem;
+    object-fit: contain;
+}
+
+@media (max-width: 575.98px) {
+    .site-header-inner {
+        min-height: 72px;
+    }
+
+    .brand-logo {
+        width: 46px;
+        height: 46px;
+    }
+
+    .brand-caption,
+    .account-details {
+        display: none;
+    }
+
+    .app-tabs .nav-link {
+        padding-right: 0.75rem;
+        padding-left: 0.75rem;
+    }
+}
+
+@media print {
+    .site-header,
+    .nav-shell,
+    .no-print {
+        display: none !important;
+    }
+}

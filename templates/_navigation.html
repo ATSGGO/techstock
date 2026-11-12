@@ -1,0 +1,50 @@
+<header class="site-header no-print">
+    <div class="container site-header-inner">
+        <a class="brand-lockup"
+           href="{{ url_for('dashboard') if current_user else url_for('login') }}">
+            <img class="brand-logo"
+                 src="{{ url_for('static', filename='techstock-logo.png') }}"
+                 alt="">
+            <span>
+                <span class="brand-name">TechStock</span>
+                <span class="brand-caption">Gestão de estoque e vendas</span>
+            </span>
+        </a>
+        {% if current_user %}
+            <div class="account-area">
+                <div class="account-details">
+                    <span class="account-name">{{ current_user.nome_completo }}</span>
+                    <span class="account-role">{{ current_user.perfil_acesso }}</span>
+                </div>
+                <form action="{{ url_for('logout') }}" method="post" class="m-0">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+                    <button class="btn btn-sm btn-outline-light" type="submit">Sair</button>
+                </form>
+            </div>
+        {% else %}
+            <span class="brand-caption d-none d-sm-inline">TechStore Informática</span>
+        {% endif %}
+    </div>
+</header>
+
+{% if current_user %}
+    {% set active_endpoint = request.endpoint %}
+    <nav class="nav-shell no-print" aria-label="Navegação principal">
+        <div class="container">
+            <div class="nav nav-tabs app-tabs">
+                <a class="nav-link {{ 'active' if active_endpoint == 'dashboard' else '' }}"
+                   href="{{ url_for('dashboard') }}">Catálogo</a>
+                <a class="nav-link {{ 'active' if active_endpoint in ('nova_venda', 'checkout', 'recibo') else '' }}"
+                   href="{{ url_for('nova_venda') }}">Ponto de venda</a>
+                {% if current_user.perfil_acesso == 'GERENTE' %}
+                    <a class="nav-link {{ 'active' if active_endpoint in ('cadastrar_produto', 'editar_produto', 'novo') else '' }}"
+                       href="{{ url_for('cadastrar_produto') }}">Novo cadastro</a>
+                    <a class="nav-link {{ 'active' if active_endpoint == 'movimentar' else '' }}"
+                       href="{{ url_for('movimentar') }}">Movimentações</a>
+                    <a class="nav-link {{ 'active' if active_endpoint == 'relatorios' else '' }}"
+                       href="{{ url_for('relatorios') }}">Relatórios</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+{% endif %}

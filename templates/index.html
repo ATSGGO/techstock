@@ -1,38 +1,31 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>TechStock Manager - Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Catálogo | TechStock</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='app.css') }}" rel="stylesheet">
 </head>
 <body class="bg-light">
+    {% include "_navigation.html" %}
     <div class="container my-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
             <div>
-                <h2>TechStock Manager</h2>
-                <p class="text-muted mb-0">Olá, {{ current_user.nome_completo }} ({{ current_user.perfil_acesso }})</p>
+                <h1 class="page-title">Catálogo de produtos</h1>
+                <p class="page-subtitle">Acompanhe preços, disponibilidade e reposição.</p>
             </div>
-            <form action="{{ url_for('logout') }}" method="post">
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-                <button class="btn btn-outline-secondary" type="submit">Sair</button>
-            </form>
+            <a href="{{ url_for('nova_venda') }}" class="btn btn-primary">Abrir ponto de venda</a>
         </div>
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% for category, message in messages %}
                 <div class="alert alert-{{ category }}">{{ message }}</div>
             {% endfor %}
         {% endwith %}
-        <div class="mb-3">
-            <a href="{{ url_for('nova_venda') }}" class="btn btn-success">Abrir PDV</a>
-            {% if current_user.perfil_acesso == 'GERENTE' %}
-                <a href="{{ url_for('cadastrar_produto') }}" class="btn btn-primary">+ Novo Ativo</a>
-                <a href="{{ url_for('movimentar') }}" class="btn btn-warning">Registar Movimentação</a>
-                <a href="{{ url_for('relatorios') }}" class="btn btn-dark">Relatórios de vendas</a>
-            {% endif %}
-        </div>
         <div class="card shadow-sm">
             <div class="card-body">
-                <table class="table table-hover align-middle">
+                <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
                     <thead class="table-dark">
                         <tr>
                             <th>SKU</th>
@@ -80,9 +73,17 @@
                                 </td>
                             {% endif %}
                         </tr>
+                        {% else %}
+                        <tr>
+                            <td class="text-center text-secondary py-4"
+                                colspan="{{ 10 if current_user.perfil_acesso == 'GERENTE' else 9 }}">
+                                Nenhum produto cadastrado.
+                            </td>
+                        </tr>
                         {% endfor %}
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>

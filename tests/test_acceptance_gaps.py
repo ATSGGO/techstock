@@ -42,6 +42,32 @@ class AcceptanceGapTests(unittest.TestCase):
             sess["_csrf_token"] = self.csrf_token
         return usuario_id
 
+    def test_authenticated_pages_use_shared_role_aware_navigation(self) -> None:
+        self.set_usuario("gerente@techstore.com")
+        gerente = self.client.get("/")
+        gerente_html = gerente.get_data(as_text=True)
+        self.assertIn("Catálogo", gerente_html)
+        self.assertIn("Ponto de venda", gerente_html)
+        self.assertIn("Relatórios", gerente_html)
+        self.assertIn("/static/app.css", gerente_html)
+        self.assertIn("/static/techstock-logo.png", gerente_html)
+        stylesheet = self.client.get("/static/app.css")
+        self.assertEqual(stylesheet.status_code, 200)
+        stylesheet.close()
+        logo = self.client.get("/static/techstock-logo.png")
+        self.assertEqual(logo.status_code, 200)
+        self.assertTrue(logo.content_type.startswith("image/png"))
+        logo.close()
+        login = techstock.app.test_client().get("/login")
+        self.assertIn(
+            "/static/techstock-logo.png", login.get_data(as_text=True)
+        )
+
+        self.set_usuario("operador@techstore.com")
+        operador_html = self.client.get("/").get_data(as_text=True)
+        self.assertIn("Ponto de venda", operador_html)
+        self.assertNotIn(">Relatórios</a>", operador_html)
+
     def test_checkout_redirects_to_verifiable_receipt(self) -> None:
         self.set_usuario("operador@techstore.com")
         conexao = techstock.obter_conexao()
