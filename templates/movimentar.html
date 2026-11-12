@@ -10,8 +10,13 @@
         <div class="card shadow-sm">
             <div class="card-body">
                 <h3 class="mb-4">🔄 Registo de Movimentação (Entrada / Saída)</h3>
-                
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endwith %}
                 <form action="/movimentar" method="POST">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
                     <div class="mb-3">
                         <label class="form-label">Selecionar Ativo / Produto:</label>
                         <select class="form-select" name="produto_id" required>

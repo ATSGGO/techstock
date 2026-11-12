@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Venda concluída | TechStore Informática</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<main class="container py-5" style="max-width: 720px">
+    <section class="card shadow-sm">
+        <div class="card-body p-4 p-md-5 text-center">
+            <div class="display-5 text-success" aria-hidden="true">✓</div>
+            <h1 class="h3 mt-3">Venda concluída</h1>
+            <p class="text-secondary">O estoque e a auditoria foram atualizados na mesma transação.</p>
+            <dl class="row text-start my-4">
+                <dt class="col-sm-5">Pedido</dt><dd class="col-sm-7">{{ numero_pedido }}</dd>
+                <dt class="col-sm-5">Cliente</dt><dd class="col-sm-7">{{ cliente_nome }}</dd>
+                <dt class="col-sm-5">Total</dt><dd class="col-sm-7">R$ {{ "%.2f"|format(total) }}</dd>
+            </dl>
+            <a class="btn btn-primary" href="{{ url_for('recibo', venda_id=venda_id) }}">Abrir recibo</a>
+            <a class="btn btn-outline-secondary" href="{{ url_for('nova_venda') }}">Nova venda</a>
+        </div>
+    </section>
+</main>
+</body>
+</html>
